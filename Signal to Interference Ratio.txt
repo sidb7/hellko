@@ -1,0 +1,23 @@
+Signal to Interference Ratio
+
+
+clc;
+
+SIDB=0;
+n=4;
+I0=6;
+while SIDB<=15;
+N=7;
+q1=(3*N);
+Q=sqrt(q1);
+SI=(Q^n)/I0;
+SIDB=10*log10(SI);
+disp(SIDB);
+disp('Value of N is');
+disp(N)
+if SIDB<=15
+disp('value N is not as desired')
+else
+disp('value of N is acceptable');
+end
+end

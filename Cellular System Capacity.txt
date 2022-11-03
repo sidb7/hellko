@@ -1,0 +1,14 @@
+Cellular System Capacity
+clc;
+a=5000; 
+b=15;
+S=1000;
+N=[3 4 7 9 12 13 19 21 28 37];
+H=N.*b; 
+M=a./H; 
+K=S./N; 
+C=S.*M;
+plot(N,C);
+xlabel('Cluster Size (number of cells in a Cluster)');
+ylabel('System Capacity');
+title('Relation Between Cluster Size and System Capacity');

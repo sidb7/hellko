@@ -1,0 +1,42 @@
+
+DSSS
+
+clc
+PNbit_stream = round(rand(1,32));
+inputsignal=[0 1 0 0 1 0 1 1];
+PNbit_stream;
+j=1;
+for i=1:1:8
+if j<32
+for k=j:1:j+3
+a(k)=xor(PNbit_stream(k),inputsignal(i));
+end
+j=j+4;
+end
+end
+l=length(a);
+for i=1:1:l
+d(i)=xor(PNbit_stream(i),a(i));
+end
+j=1;
+for k=1:1:8
+if j<32
+c(k)=d(j);
+j=j+4;
+end
+end
+figure(1)
+stem(PNbit_stream)
+title('PNbit_stream')
+figure(2)
+stem(inputsignal)
+title('input_signal')
+figure(3)
+stem(a)
+title('DSSS')
+figure(4)
+stem(d)
+title('signal after xor at receiver')
+figure(5)
+stem(c)
+title('received data')
