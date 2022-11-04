@@ -10,44 +10,31 @@ cr = 10000;
 SNRdBvalues = -15:30;
 
 Cmimo = zeros(1, length(SNRdBvalues));
-Csimo = zeros(1, length(SNRdBvalues));
-Cmiso = zeros(1, length(SNRdBvalues));
-Csiso = zeros(1, length(SNRdBvalues));
+
 for k=1:cr
 SNRidx = 0; 
 
 Hmimo = (randn(Mr,Mt) + 1i*randn(Mr,Mt))/sqrt(2); 
-hsimo = (randn(Mr,1) + 1i*randn(Mr,1))/sqrt(2);
-hmiso = (randn(1,Mr) + 1i*randn(1,Mr))/sqrt(2); 
-hsiso = (randn + 1i*randn)/sqrt(2);
+
 for SNRdB = SNRdBvalues
  SNR = 10.^(SNRdB./10); 
  SNRidx = SNRidx + 1;
 
  Cmimo(SNRidx) = Cmimo(SNRidx) + log2(real(det( eye(Mr) + SNR/Mt*(Hmimo*Hmimo') )));
- % SIMO
- Csimo(SNRidx) = Csimo(SNRidx) + log2( 1 + SNR*norm(hsimo)^2 );
- % MISO
- Cmiso(SNRidx) = Cmiso(SNRidx) + log2( 1 + SNR/Mt*norm(hmiso)^2 );
- % SISO
- Csiso(SNRidx) = Csiso(SNRidx) + log2( 1 + SNR*abs(hsiso)^2 );
+ 
 end
 end
 
-Csiso = Csiso/cr;
-Csimo = Csimo/cr;
-Cmiso = Cmiso/cr;
+
 Cmimo = Cmimo/cr;
 
 figure(1)
 plot(SNRdBvalues, Cmimo,'r')
 hold on
-plot(SNRdBvalues, Csimo,'b')
-plot(SNRdBvalues, Cmiso,'k')
-plot(SNRdBvalues, Csiso,'m')
+
 xlabel('Average SNR \rho (dB)')
 ylabel('Ergodic Capacity (bits/transmission)')
 title('Ergodic Capacity for i.i.d. Rayleigh fast fading channel')
-legend('4x4 MIMO', '1x4 SIMO', '4x1 MISO', '1x1 SIMO',"Location","northwest")
+legend('4x4 MIMO',"Location","northwest")
 grid
 hold off
